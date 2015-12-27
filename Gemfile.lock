@@ -1,0 +1,15 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    gnuplot (2.6.2)
+    rake (10.4.2)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  gnuplot
+  rake
+
+BUNDLED WITH
+   1.10.6

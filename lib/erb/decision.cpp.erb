@@ -1,0 +1,19 @@
+#include "decision.hpp"
+
+#include <iostream>
+
+using namespace std;
+
+<%= @prototypes.join('') %>
+
+int decision(const vector<int> &attrs) {
+  return branch0(attrs);
+}
+
+void decision(const vector<vector<int>> &attr_list) {
+  for(auto &attrs : attr_list) {
+    cout << branch0(attrs) << endl;
+  }
+}
+
+<%= @decisions.join('') %>

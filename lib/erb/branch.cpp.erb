@@ -1,0 +1,8 @@
+int branch<%= branch_id %>(const vector<int> &attrs) {
+  if(attrs[<%= attr %>] >= <%= split_point %>) {
+    return <%= val1.nil? ? "branch#{left_id}(attrs)" : val1 %>;
+  } else {
+    return <%= val2.nil? ? "branch#{right_id}(attrs)" : val2 %>;
+  }
+}
+
