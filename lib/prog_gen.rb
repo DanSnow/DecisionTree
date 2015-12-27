@@ -13,6 +13,8 @@ PROTO_TPL = File.read(File.join ERB_PATH, 'prototype.cpp.erb')
 BRANCH_TPL = File.read(File.join ERB_PATH, 'branch.cpp.erb')
 VAL_TPL = File.read(File.join ERB_PATH, 'val.cpp.erb')
 
+SRC_PATH = File.join(__dir__, '..', 'src')
+
 class ProgGen
   def initialize(root)
     @root = root
@@ -67,7 +69,7 @@ class ProgGen
   def output_result
     bind_scope = binding
     erb = ERB.new(DECISION_TPL)
-    File.write('decision.cpp', erb.result(bind_scope))
+    File.write(File.join(SRC_PATH, 'decision.cpp'), erb.result(bind_scope))
   end
 end
 
