@@ -2,6 +2,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     gnuplot (2.6.2)
+    highline (1.7.8)
     rake (10.4.2)
 
 PLATFORMS
@@ -9,6 +10,7 @@ PLATFORMS
 
 DEPENDENCIES
   gnuplot
+  highline
   rake
 
 BUNDLED WITH
