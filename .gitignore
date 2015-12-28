@@ -91,5 +91,7 @@ build/
 
 src/tree
 src/test
+src/tree.dump
+src/decision.cpp
 src/train.csv
 src/output.csv
