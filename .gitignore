@@ -1,5 +1,5 @@
 
-# Created by https://www.gitignore.io/api/linux,vim.c++,ruby
+# Created by https://www.gitignore.io/api/linux,vim,c++,ruby
 
 ### Linux ###
 *~
@@ -11,7 +11,45 @@
 .Trash-*
 
 
-#!! ERROR: vim.c++ is undefined. Use list command to see defined gitignore types !!#
+### Vim ###
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+
+### C++ ###
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
 
 ### Ruby ###
 *.gem
@@ -53,5 +91,5 @@ build/
 
 src/tree
 src/test
-src/output.csv
 src/train.csv
+src/output.csv
