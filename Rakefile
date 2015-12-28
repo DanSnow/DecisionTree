@@ -19,7 +19,7 @@ namespace :build do
 end
 
 
-desc 'Train ai test'
+desc 'Train ai and test'
 task train: 'build:tree' do
   Dir.chdir('src') do
     train_data = File.read('full_train_data.csv').each_line.map(&:chomp)
