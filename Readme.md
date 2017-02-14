@@ -1,9 +1,9 @@
 DecisionTree
 ============
 
-A decision tree implement with entropy in C++.
+A decision tree example implement with entropy in C++.
 
 ## Depency ##
-- C++11
+- C++14
 - Boost alogorithm
 - Ruby ( For generate decision code )
