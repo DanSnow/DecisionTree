@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -g -Wall -Wno-deprecated -Werror -std=gnu++11
+CXXFLAGS = -g -Wall -Wno-deprecated -Werror -std=gnu++14
 INCLUDES = -I../include
 LIBS =
 
