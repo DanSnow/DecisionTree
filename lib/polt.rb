@@ -22,8 +22,8 @@ result = Gnuplot.open do |gp|
       y << train(train_data, size, 0)
     end
 
-    plot.data << Gnuplot::DataSet.new( [x, y] ) do |ds|
-      ds.with = "linespoints"
+    plot.data << Gnuplot::DataSet.new([x, y]) do |ds|
+      ds.with = 'linespoints'
       ds.notitle
     end
   end

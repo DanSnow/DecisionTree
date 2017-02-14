@@ -8,10 +8,10 @@ require_relative 'tree_node'
 
 ERB_PATH = File.join(__dir__, 'erb')
 
-DECISION_TPL = File.read(File.join ERB_PATH, 'decision.cpp.erb')
-PROTO_TPL = File.read(File.join ERB_PATH, 'prototype.cpp.erb')
-BRANCH_TPL = File.read(File.join ERB_PATH, 'branch.cpp.erb')
-VAL_TPL = File.read(File.join ERB_PATH, 'val.cpp.erb')
+DECISION_TPL = File.read(File.join(ERB_PATH, 'decision.cpp.erb'))
+PROTO_TPL = File.read(File.join(ERB_PATH, 'prototype.cpp.erb'))
+BRANCH_TPL = File.read(File.join(ERB_PATH, 'branch.cpp.erb'))
+VAL_TPL = File.read(File.join(ERB_PATH, 'val.cpp.erb'))
 
 SRC_PATH = File.join(__dir__, '..', 'src')
 

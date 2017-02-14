@@ -18,18 +18,6 @@ def train(train_data, train_size, skip_len)
   diff
 end
 
-# def main
-#   train_size = TRAIN_SIZE
-#   train_data = File.read('full_train_data.csv').each_line.map(&:chomp)
-#   while train_size < DATA_SIZE - 2 * SIZE_DIFF
-#     skip_max = DATA_SIZE - train_size
-#     (0..skip_max).map do |skip_len|
-#       train(train_data, train_size, skip_len)
-#     end
-#     train_size += SIZE_DIFF
-#   end
-# end
-
 def run_train(train_size, train_offset)
   train_data = File.read('full_train_data.csv').each_line.map(&:chomp)
   train(train_data, train_size, train_offset)

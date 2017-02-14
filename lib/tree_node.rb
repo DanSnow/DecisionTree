@@ -9,7 +9,7 @@ class TreeNode
     @attr = attr
     @split_point = split_point
     @val = val
-    @type = type == 0 ? :val : :branch
+    @type = type.zero? ? :val : :branch
   end
 
   def left_branch?
