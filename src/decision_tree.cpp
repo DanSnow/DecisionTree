@@ -1,25 +1,24 @@
 #include "decision_tree.hpp"
 #include "tree_node.hpp"
 
-#include <iostream>
-#include <set>
-#include <array>
 #include <algorithm>
-#include <functional>
+#include <array>
+#include <iostream>
+#include <unordered_set>
 #include <cmath>
 
 using namespace std;
 
 namespace {
-  const int ATTR_SIZE = 24;
-  const double MAX_INFO = 1;
+  const constexpr int ATTR_SIZE = 24;
+  const constexpr double MAX_INFO = 1;
 
   bool split_examples(int attr, int split, const vector<int> &example);
 }
 
 shared_ptr<TreeNode> DecisionTree::gen_tree(vector<vector<int>> &examples) {
-  root = gen_tree(nullptr, examples.begin(), examples.end());
-  return root;
+  examples_size = examples.size();
+  return gen_tree(nullptr, examples.begin(), examples.end());
 }
 
 shared_ptr<TreeNode> DecisionTree::gen_tree(
@@ -28,39 +27,46 @@ shared_ptr<TreeNode> DecisionTree::gen_tree(
     const vector<vector<int>>::iterator &end_it,
     int depth
   ) {
-  using std::placeholders::_1;
   int attr, split_point;
-  size_t size = end_it - begin_it;
+  size_t size = end_it - begin_it; // Size of current examples
   vector<vector<int>>::iterator split_it;
   shared_ptr<TreeNode> node;
   double info, child_info;
 
+  // No more example
   if(begin_it == end_it) {
     return nullptr;
   }
 
+  // Get entropy
   info = entropy(begin_it, end_it);
 
   cout << "Depth: " << depth << ", Data size: " << size << ", Info: " << info << endl;
 
+  // It's exactly split into two part
   if(0 >= info) {
+    // Return answer
     return make_shared<TreeNode>((*begin_it)[24]);
   }
 
   if(!parent) {
-    examples_size = size;
     tie(attr, split_point, child_info) = choose_attr(begin_it, end_it, split_it);
   } else {
+    // Need to avoid to choose the same attribute
     tie(attr, split_point, child_info) = choose_attr(begin_it, end_it, split_it, parent->attr);
   }
 
+  // Check if it can't split into two part
   if(attr == -1 || info <= child_info || 0.1 >= info) {
-    size_t ans1 = count_if(begin_it, end_it, [](const vector<int> &example) {
+    // Count of 1 to decide answer
+    size_t ans_1 = count_if(begin_it, end_it, [](const vector<int> &example) {
         return example[24] == 1;
     });
-    return make_shared<TreeNode>(ans1 < size / 2 ? 2 : 1);
+    // Check if 1 is more then half of current examples
+    return make_shared<TreeNode>(ans_1 < size / 2 ? 2 : 1);
   }
 
+  // Make a decision tree node
   cout << "Attr: " << attr << ", Split point: " << split_point << ", Child info: " << child_info << endl;
   cout << "Left data size: " << split_it - begin_it << ", Right data size: " << end_it - split_it << endl;
 
@@ -79,23 +85,34 @@ tuple<int, int, double> DecisionTree::choose_attr(
   int attr = -1, split_point = -1;
   vector<vector<int>>::iterator split_it;
   for(int i = 0; i < ATTR_SIZE; ++i) {
+    // Don't choose the same attr which parent used
+    // Or we'll get a pointless split point
     if(i == skip_attr) {
       continue;
     }
-    set<int> attr_vals;
+
+    // Use set, so we don't need to manually remove duplicate attr
+    // We don't need ordered
+    unordered_set<int> attr_vals;
     for(auto it = begin_it; it != end_it; ++it) {
+      // Add all value into a set
       attr_vals.insert((*it)[i]);
     }
+
+    // Try to find a value to split example into two part
     for(int val : attr_vals) {
       double info;
-      using std::placeholders::_1;
-      split_it = partition(begin_it, end_it, bind(split_examples, i, val, _1));
+      split_it = partition(begin_it, end_it, [i, val](const auto& examples){
+        return split_examples(i, val, examples);
+      });
+      // Calculate entropy
       info = entropy(begin_it, split_it, end_it);
+      // If get a smaller entropy
       if(min_info > info) {
         min_info = info;
         attr = i;
         split_point = val;
-        min_split_it = split_it;
+        min_split_it = split_it; // Write split point to #gen_tree
       }
     }
   }
